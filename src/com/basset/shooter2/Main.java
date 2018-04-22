@@ -22,15 +22,15 @@ public class Main extends HvlTemplateInteg2D {
 
 		player = new Player(1280/2, 720/2);
 		blocks = new Block[10];
-		blocks[0] = new Block(200, 100, 0, true);
+		blocks[0] = new Block(200, 100, 8, true);
 		blocks[1] = new Block(250, 100, 0, true);
-		blocks[2] = new Block(300, 100, 0, true);
+		blocks[2] = new Block(300, 100, 15, true);
 		blocks[3] = new Block(350, 100, 0, true);
-		blocks[4] = new Block(400, 100, 0, true);
+		blocks[4] = new Block(400, 100, 2, true);
 		blocks[5] = new Block(450, 100, 0, true);
-		blocks[6] = new Block(500, 100, 0, true);
+		blocks[6] = new Block(500, 100, 4, true);
 		blocks[7] = new Block(550, 100, 0, true);
-		blocks[8] = new Block(600, 100, 0, true);
+		blocks[8] = new Block(600, 100, 9, true);
 
 	}
 
