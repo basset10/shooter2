@@ -28,5 +28,9 @@ public class Renderer {
 				Player.PLAYER_SIZE * ((float)Math.sin(playerTimer*5f)*0.2f + 1f), 
 				new Color(0f, 0f, (float)Math.sin(playerTimer*10f)*0.2f + 0.8f));
 	}
+	
+	public static void drawBlock(float xArg, float yArg, float patternIndexArg){
+		hvlDrawQuadc(xArg, yArg, Block.BLOCK_SIZE, Block.BLOCK_SIZE, Main.getTexture(0));
+	}
 
 }
