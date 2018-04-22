@@ -17,9 +17,10 @@ public class Main extends HvlTemplateInteg2D {
 
 	@Override
 	public void initialize(){
+		getTextureLoader().loadResource("Tileset_Stone");
 		
 		player = new Player(1280/2, 720/2);
-
+		
 	}
 
 	@Override
