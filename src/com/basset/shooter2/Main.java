@@ -28,7 +28,7 @@ public class Main extends HvlTemplateInteg2D {
 				+ "8242247\n"
 				+ "8224427\n"
 				+ "8222247\n"
-				, 1);
+				, 0);
 
 		
 	}
