@@ -2,7 +2,7 @@ package com.basset.shooter2;
 
 public class Block {
 	
-	public static final float BLOCK_SIZE = 64;
+	public static final float BLOCK_SIZE = 50;
 
 	private float xPos;
 	private float yPos;
