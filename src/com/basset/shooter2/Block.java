@@ -7,9 +7,10 @@ public class Block {
 	private float xPos;
 	private float yPos;
 	private int patternIndex;
+	private int textureIndex;
 	private boolean collidable;
 	
-	public Block(float xArg, float yArg, int patternIndexArg, boolean collidableArg) {
+	public Block(float xArg, float yArg, int patternIndexArg, int textureIndexArg, boolean collidableArg) {
 		
 		xPos = xArg;
 		yPos = yArg;
@@ -42,6 +43,17 @@ public class Block {
 		return patternIndex;
 	}
 	
+	public void setTextureIndex(int indexArg) {
+		textureIndex = indexArg;
+	}
+	
+	public int getTextureIndex() {
+		return textureIndex;
+	}
+	
+	public boolean getCollidable() {
+		return collidable;
+	}
 	
 	
 }
