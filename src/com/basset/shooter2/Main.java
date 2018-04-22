@@ -1,9 +1,5 @@
 package com.basset.shooter2;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuadc;
-
-import org.newdawn.slick.Color;
-
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
@@ -28,8 +24,10 @@ public class Main extends HvlTemplateInteg2D {
 
 	@Override
 	public void update(float delta){
+		Renderer.update(delta);
 		player.update(delta);
-		hvlDrawQuadc(player.getxPos(), player.getyPos(), Player.PLAYER_SIZE, Player.PLAYER_SIZE, Color.blue);
+		
+		Renderer.drawPlayer(player.getxPos(), player.getyPos());
 
 	}
 
