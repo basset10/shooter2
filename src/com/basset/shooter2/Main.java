@@ -28,7 +28,7 @@ public class Main extends HvlTemplateInteg2D {
 
 	@Override
 	public void update(float delta){
-		
+		player.update(delta);
 		hvlDrawQuadc(player.getxPos(), player.getyPos(), Player.PLAYER_SIZE, Player.PLAYER_SIZE, Color.blue);
 
 	}
