@@ -19,9 +19,17 @@ public class Main extends HvlTemplateInteg2D {
 	@Override
 	public void initialize(){
 		getTextureLoader().loadResource("Tileset_Stone");
+		getTextureLoader().loadResource("Tileset_Tech");
 
 		player = new Player(1280/2, 720/2);
-		blocks = new Block[10];
+		blocks = LevelLoader.loadLevel(100, 100, ""
+				+ "0111113\n"
+				+ "8224247\n"
+				+ "8242247\n"
+				+ "8224427\n"
+				+ "8222247\n"
+				, 1);
+
 		
 	}
 
@@ -33,7 +41,7 @@ public class Main extends HvlTemplateInteg2D {
 		for(int i = 0; i < blocks.length; i++) {
 
 			if(blocks[i] != null) {
-				Renderer.drawBlock(blocks[i].getxPos(), blocks[i].getyPos(), blocks[i].getPatternIndex());
+				Renderer.drawBlock(blocks[i].getxPos(), blocks[i].getyPos(), blocks[i].getPatternIndex(), blocks[i].getTextureIndex());
 			}
 
 		}

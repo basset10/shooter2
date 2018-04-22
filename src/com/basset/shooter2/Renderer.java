@@ -29,10 +29,10 @@ public class Renderer {
 				new Color(0f, 0f, (float)Math.sin(playerTimer*10f)*0.2f + 0.8f));
 	}
 	
-	public static void drawBlock(float xArg, float yArg, int patternIndexArg){
+	public static void drawBlock(float xArg, float yArg, int patternIndexArg, int textureIndex){
 		float uvx = 1f - (float)(patternIndexArg % 4)*0.25f;
 		float uvy = 1f - (float)(patternIndexArg / 4)*0.25f;
-		hvlDrawQuadc(xArg, yArg, Block.BLOCK_SIZE, Block.BLOCK_SIZE, uvx, uvy, uvx - 0.25f, uvy - 0.25f, Main.getTexture(0));
+		hvlDrawQuadc(xArg, yArg, Block.BLOCK_SIZE, Block.BLOCK_SIZE, uvx, uvy, uvx - 0.25f, uvy - 0.25f, Main.getTexture(textureIndex));
 	}
 
 }
