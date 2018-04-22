@@ -4,10 +4,10 @@ public class Block {
 	
 	public static final float BLOCK_SIZE = 64;
 
-	float xPos;
-	float yPos;
-	int patternIndex;
-	boolean collidable;
+	private float xPos;
+	private float yPos;
+	private int patternIndex;
+	private boolean collidable;
 	
 	public Block(float xArg, float yArg, int patternIndexArg, boolean collidableArg) {
 		
@@ -36,6 +36,10 @@ public class Block {
 	
 	public void setPatternIndex(int indexArg) {
 		patternIndex = indexArg;
+	}
+	
+	public int getPatternIndex() {
+		return patternIndex;
 	}
 	
 	
