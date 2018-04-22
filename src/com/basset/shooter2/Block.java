@@ -16,6 +16,7 @@ public class Block {
 		yPos = yArg;
 		patternIndex = patternIndexArg;
 		collidable = collidableArg;
+		textureIndex = textureIndexArg;
 		
 	}
 	
