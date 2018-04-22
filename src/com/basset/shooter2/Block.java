@@ -1,6 +1,8 @@
 package com.basset.shooter2;
 
 public class Block {
+	
+	public static final float BLOCK_SIZE = 64;
 
 	float xPos;
 	float yPos;
@@ -35,6 +37,8 @@ public class Block {
 	public void setPatternIndex(int indexArg) {
 		patternIndex = indexArg;
 	}
+	
+	
 	
 }
 
