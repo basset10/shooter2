@@ -1,7 +1,6 @@
 package com.basset.shooter2;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
 
 public class Player {
 
@@ -26,29 +25,21 @@ public class Player {
 	public void update(float delta) {
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-
 			ySpeed = ySpeed - PLAYER_SPEED;
-
 		}
 
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-
 			ySpeed = ySpeed + PLAYER_SPEED;
-
 		}
 
-		
+
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-
 			xSpeed = xSpeed + PLAYER_SPEED;
-
 		}
-		
+
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-
 			xSpeed = xSpeed - PLAYER_SPEED;
-
 		}
 
 		yPos = yPos+(delta * ySpeed);
