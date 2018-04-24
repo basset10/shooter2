@@ -23,11 +23,11 @@ public class Main extends HvlTemplateInteg2D {
 
 		player = new Player(1280/2, 720/2);
 		blocks = LevelLoader.loadLevel(100, 100, ""
-				+ "0111113\n"
+				+ "0111987113\n"
 				+ "8224247\n"
 				+ "8242247\n"
 				+ "8224427\n"
-				+ "8222247\n"
+				+ "8222222222222222222247\n"
 				, 0);
 
 		

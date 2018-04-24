@@ -16,4 +16,15 @@ public class LevelLoader {
 		return output;
 	}
 	
+	/* public static int parseBlockCode(String blockCode) {
+		
+		int blockNum;
+		
+		blockNum = blockCode;
+		
+		return blockNum;
+		
+		
+	}*/
+	
 }
