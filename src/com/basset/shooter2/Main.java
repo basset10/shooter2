@@ -18,6 +18,7 @@ public class Main extends HvlTemplateInteg2D {
 
 	@Override
 	public void initialize(){
+		LevelLoader.initialize();
 		getTextureLoader().loadResource("Tileset_Stone");
 		getTextureLoader().loadResource("Tileset_Tech");
 
