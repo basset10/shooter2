@@ -13,7 +13,7 @@ public class Main extends HvlTemplateInteg2D {
 	Block[] blocks;
 
 	public Main(){
-		super(144, 1280, 720, "SHHHHHHHOOOOOOOOOOOOOOOOOOOOTER2", new HvlDisplayModeDefault());
+		super(144, 1000, 700, "SHHHHHHHOOOOOOOOOOOOOOOOOOOOTER2", new HvlDisplayModeDefault());
 	}
 
 	@Override
@@ -23,12 +23,14 @@ public class Main extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Tileset_Tech");
 
 		player = new Player(1280/2, 720/2);
-		blocks = LevelLoader.loadLevel(100, 100, ""
-				+ "0111987113\n"
-				+ "8224247\n"
-				+ "8242247\n"
-				+ "8224427\n"
-				+ "8222222222222222222247\n"
+		blocks = LevelLoader.loadLevel(50, 50, ""
+				+ "LUUUUUUUUR\n"
+				+ "1cAdddddB2\n"
+				+ "1c2nnnnn12\n"
+				+ "1c2nnnnn12\n"
+				+ "1c2nnnnn12\n"
+				+ "1caUUUUUb2\n"
+				+ "lddddddddr\n"
 				, 0);
 
 		

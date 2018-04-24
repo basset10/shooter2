@@ -4,37 +4,28 @@ import com.osreboot.ridhvl.HvlMath;
 
 public class BlockCode {
 
-	private static char key;
-	private static int value[];
+	private char key;
+	private int value[];
 
 	public BlockCode(char keyArg, int valueArg) {
-
-		value = new int[0];
+		value = new int[1];
 
 		key = keyArg;
 		value[0] = valueArg;
-
 	}
 
 	public BlockCode(char keyArg, int[] valuesArg) {
-		
 		value = valuesArg;
 		key = keyArg;
-		
 	}
 
 
-	public static char getKey() {
-
+	public char getKey() {
 		return key;
-
 	}
 
-	public static int getValue() {
-		
-		
+	public int getValue() {
 		return value[HvlMath.randomInt(value.length)];
-
 	}
 
 

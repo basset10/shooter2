@@ -5,8 +5,8 @@ public class LevelLoader {
 	public static BlockCode[] codes;
 	
 	public static void initialize() {
-		
 		codes = new BlockCode[] {
+				new BlockCode('n',-1),
 				new BlockCode('L',0),
 				new BlockCode('U',1),
 				new BlockCode('R',3),
@@ -20,10 +20,7 @@ public class LevelLoader {
 				new BlockCode('d',14),
 				new BlockCode('r',15),
 				new BlockCode('c', new int[]{2,4,11,13})
-
 		};
-		
-		
 	}
 	
 	
@@ -34,8 +31,10 @@ public class LevelLoader {
 		int currentIndex = 0;
 		for(float y = 0; y < rows.length; y++){
 			for(float x = 0; x < rows[(int)y].length(); x++){
+				int code = parseBlockCode(rows[(int)y].charAt((int)x));
+				if(code != -1)
 				output[currentIndex] = new Block(xArg + (x*Block.BLOCK_SIZE), yArg + (y*Block.BLOCK_SIZE), 
-						Integer.parseInt(rows[(int)y].charAt((int)x) + ""), textureIndexArg, false);
+						code, textureIndexArg, false);
 				currentIndex++;
 			}
 		}
@@ -43,12 +42,11 @@ public class LevelLoader {
 	}
 	
 	private static int parseBlockCode(char blockCode) {
-		
-		char blockNum;
-		
-		blockNum = blockCode;
-		
-		return blockNum;
+		int number = 0;
+		for(int i = 0; i < codes.length; i++){
+			if(codes[i].getKey() == blockCode) number = codes[i].getValue();
+		}
+		return number;
 		
 		
 	}
