@@ -31,7 +31,7 @@ public class Main extends HvlTemplateInteg2D {
 				+ "1c2nnnnn12\n"
 				+ "1caUUUUUb2\n"
 				+ "lddddddddr\n"
-				, 0);
+				, 1);
 
 		
 	}
