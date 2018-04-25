@@ -23,8 +23,7 @@ public class Main extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Tileset_Tech");
 
 		player = new Player(1280/2, 720/2);
-		/*
-		blocks = LevelLoader.loadLevel(50, 50, ""
+		/*blocks = LevelLoader.loadLevel(50, 50, ""
 				+ "LUUUUUUUUR\n"
 				+ "1cAdddddB2\n"
 				+ "1c2nnnnn12\n"
@@ -32,8 +31,7 @@ public class Main extends HvlTemplateInteg2D {
 				+ "1c2nnnnn12\n"
 				+ "1caUUUUUb2\n"
 				+ "lddddddddr\n"
-				, 1);
-		*/
+				, 1);*/
 		blocks = LevelLoader.loadLevel(50, 50, ""
 				+ "abAb12LR\n"
 				+ "1cAdddB2\n"
