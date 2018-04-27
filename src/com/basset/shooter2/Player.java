@@ -26,34 +26,29 @@ public class Player {
 
 	public void update(float delta) {
 		
-		if(Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			
-			ySpeed = 0;
-			xSpeed = 0;
-			
-		}else {
-			
-			ySpeed = HvlMath.stepTowards(ySpeed, delta * 1500, 0);
-			xSpeed = HvlMath.stepTowards(xSpeed, delta * 1500, 0);
+		if(!Keyboard.isKeyDown(Keyboard.KEY_W) && !Keyboard.isKeyDown(Keyboard.KEY_S) && !Keyboard.isKeyDown(Keyboard.KEY_D) && !Keyboard.isKeyDown(Keyboard.KEY_A)) {
+		
+			ySpeed = HvlMath.stepTowards(ySpeed, delta * 1750, 0);
+			xSpeed = HvlMath.stepTowards(xSpeed, delta * 1750, 0);
 			
 		}
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			ySpeed = HvlMath.stepTowards(xSpeed, delta * 10000, -PLAYER_SPEED);
+			ySpeed = -PLAYER_SPEED;
 		}
 
 
 		 if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			ySpeed = HvlMath.stepTowards(ySpeed, delta * 10000, PLAYER_SPEED);
+			ySpeed = PLAYER_SPEED;
 		}
 
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			xSpeed = HvlMath.stepTowards(xSpeed, delta * 10000, PLAYER_SPEED);
+			xSpeed = PLAYER_SPEED;
 		}
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			xSpeed = HvlMath.stepTowards(xSpeed, delta * 10000, -PLAYER_SPEED);
+			xSpeed = -PLAYER_SPEED;
 		}
 
 		yPos = yPos+(delta * ySpeed);
