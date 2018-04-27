@@ -12,8 +12,8 @@ public class LevelLoader {
 				new BlockCode('R',3),
 				new BlockCode('A',5),
 				new BlockCode('B',6),
-				new BlockCode('2',7),
-				new BlockCode('1',8),
+				new BlockCode('k',7),
+				new BlockCode('j',8),
 				new BlockCode('a',9),
 				new BlockCode('b',10),
 				new BlockCode('l',12),
@@ -25,16 +25,19 @@ public class LevelLoader {
 	
 	
 
-	public static Block[] loadLevel(float xArg, float yArg, String levelArg, int textureIndexArg){
+	public static Block[] loadLevel(float xArg, float yArg, String levelArg, String indexMapArg){
 		Block[] output = new Block[levelArg.replace("\n", "").length()];
 		String[] rows = levelArg.split("\n");
+		String[] rowsIM = indexMapArg.split("\n");
+		if(rows.length != rowsIM.length) System.out.println("Level string not equal size to index map string!");
 		int currentIndex = 0;
 		for(float y = 0; y < rows.length; y++){
+			if(rows[(int)y].length() != rowsIM[(int)y].length()) System.out.println("Level string not equal size to index map string!");
 			for(float x = 0; x < rows[(int)y].length(); x++){
 				int code = parseBlockCode(rows[(int)y].charAt((int)x));
 				if(code != -1)
 				output[currentIndex] = new Block(xArg + (x*Block.BLOCK_SIZE), yArg + (y*Block.BLOCK_SIZE), 
-						code, textureIndexArg, false);
+						code, Integer.parseInt(rowsIM[(int)y].charAt((int)x) + ""), false);
 				currentIndex++;
 			}
 		}
