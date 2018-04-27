@@ -8,11 +8,14 @@ public class Player {
 
 	public static final float PLAYER_SIZE = 20f;
 	public static final int PLAYER_SPEED = 250;
+	public static final int PLAYER_ACCELERATION = 100;
+	public static final int PLAYER_DECELERATION = 1000;	
 
 	private float xPos;
 	private float yPos;
 	private float xSpeed;
 	private float ySpeed;
+	private float acceleration = 1.00f;
 
 	public Player(float x, float y) {
 
@@ -26,37 +29,48 @@ public class Player {
 
 	public void update(float delta) {
 		
-		if(!Keyboard.isKeyDown(Keyboard.KEY_W) && !Keyboard.isKeyDown(Keyboard.KEY_S) && !Keyboard.isKeyDown(Keyboard.KEY_D) && !Keyboard.isKeyDown(Keyboard.KEY_A)) {
-		
-			ySpeed = HvlMath.stepTowards(ySpeed, delta * 1750, 0);
-			xSpeed = HvlMath.stepTowards(xSpeed, delta * 1750, 0);
+		acceleration = HvlMath.stepTowards(acceleration, delta*90000, ((HvlMath.distance(0, 0, xSpeed, ySpeed)) * PLAYER_ACCELERATION) + 100);
+
+
+		if(!Keyboard.isKeyDown(Keyboard.KEY_W) && !Keyboard.isKeyDown(Keyboard.KEY_S)) {
+						
+			ySpeed = HvlMath.stepTowards(ySpeed, delta * PLAYER_DECELERATION, 0);
+			
+		}
+
+		if(!Keyboard.isKeyDown(Keyboard.KEY_D) && !Keyboard.isKeyDown(Keyboard.KEY_A)) {
+
+			xSpeed = HvlMath.stepTowards(xSpeed, delta * PLAYER_DECELERATION, 0);
 			
 		}
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			ySpeed = HvlMath.stepTowards(ySpeed, delta * 2000, -PLAYER_SPEED);
+			
+			ySpeed = HvlMath.stepTowards(ySpeed, acceleration * delta, -PLAYER_SPEED);
 		}
-	
 
 
-		 if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			ySpeed = HvlMath.stepTowards(ySpeed, delta * 2000, PLAYER_SPEED);
+		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
+			
+			ySpeed = HvlMath.stepTowards(ySpeed, acceleration * delta, PLAYER_SPEED);
 		}
 
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			xSpeed = HvlMath.stepTowards(xSpeed, delta * 2000, PLAYER_SPEED);
+			
+			xSpeed = HvlMath.stepTowards(xSpeed, acceleration * delta, PLAYER_SPEED);
 		}
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			xSpeed = HvlMath.stepTowards(xSpeed, delta * 2000, -PLAYER_SPEED);
+			
+			xSpeed = HvlMath.stepTowards(xSpeed, acceleration * delta, -PLAYER_SPEED);
 		}
 
 		yPos = yPos+(delta * ySpeed);
 		xPos = xPos+(delta * xSpeed);
 
-		
-	
+System.out.println(acceleration);
+
 	}
 
 	public float getxPos(){
