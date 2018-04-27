@@ -34,25 +34,22 @@ public class Player {
 		}
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			ySpeed = HvlMath.stepTowards(xSpeed, delta * 100000, -PLAYER_SPEED);
-			ySpeed = -PLAYER_SPEED;
+			ySpeed = HvlMath.stepTowards(ySpeed, delta * 2000, -PLAYER_SPEED);
 		}
+	
 
 
 		 if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			ySpeed = HvlMath.stepTowards(ySpeed, delta * 100000, PLAYER_SPEED);
-			ySpeed = PLAYER_SPEED;
+			ySpeed = HvlMath.stepTowards(ySpeed, delta * 2000, PLAYER_SPEED);
 		}
 
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			xSpeed = HvlMath.stepTowards(xSpeed, delta * 100000, PLAYER_SPEED);
-			xSpeed = PLAYER_SPEED;
+			xSpeed = HvlMath.stepTowards(xSpeed, delta * 2000, PLAYER_SPEED);
 		}
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			xSpeed = HvlMath.stepTowards(xSpeed, delta * 100000, -PLAYER_SPEED);
-			xSpeed = -PLAYER_SPEED;
+			xSpeed = HvlMath.stepTowards(xSpeed, delta * 2000, -PLAYER_SPEED);
 		}
 
 		yPos = yPos+(delta * ySpeed);
