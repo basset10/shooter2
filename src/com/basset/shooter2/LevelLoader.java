@@ -25,19 +25,22 @@ public class LevelLoader {
 	
 	
 
-	public static Block[] loadLevel(float xArg, float yArg, String levelArg, String indexMapArg){
+	public static Block[] loadLevel(float xArg, float yArg, String levelArg, String indexMapArg, String collisionMapArg){
 		Block[] output = new Block[levelArg.replace("\n", "").length()];
 		String[] rows = levelArg.split("\n");
 		String[] rowsIM = indexMapArg.split("\n");
-		if(rows.length != rowsIM.length) System.out.println("Level string not equal size to index map string!");
+		String[] rowsCM = collisionMapArg.split("\n");
+		if(rows.length != rowsIM.length && rows.length != rowsCM.length) System.out.println("Level string not equal size to a map string!");
 		int currentIndex = 0;
 		for(float y = 0; y < rows.length; y++){
-			if(rows[(int)y].length() != rowsIM[(int)y].length()) System.out.println("Level string not equal size to index map string!");
+			if(rows[(int)y].length() != rowsIM[(int)y].length() && rows[(int)y].length() != rowsCM[(int)y].length()) 
+				System.out.println("Level string not equal size to a map string!");
 			for(float x = 0; x < rows[(int)y].length(); x++){
 				int code = parseBlockCode(rows[(int)y].charAt((int)x));
+				boolean collision = rowsCM[(int)y].charAt((int)x) == '1' ? true : false;
 				if(code != -1)
 				output[currentIndex] = new Block(xArg + (x*Block.BLOCK_SIZE), yArg + (y*Block.BLOCK_SIZE), 
-						code, Integer.parseInt(rowsIM[(int)y].charAt((int)x) + ""), false);
+						code, Integer.parseInt(rowsIM[(int)y].charAt((int)x) + ""), collision);
 				currentIndex++;
 			}
 		}
