@@ -32,6 +32,8 @@ public class Player {
 		
 		acceleration = HvlMath.stepTowards(acceleration, delta*97500, ((HvlMath.distance(0, 0, xSpeed, ySpeed)) * PLAYER_ACCELERATION) + 100);
 		
+		
+		
 		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
 			maxSpeed = 400;
 		}else {
@@ -67,8 +69,6 @@ public class Player {
 		
 		yPos = HvlMath.limit(yPos+(delta * ySpeed), 0, Display.getHeight());
 		xPos = HvlMath.limit(xPos+(delta * xSpeed), 0, Display.getWidth());
-
-System.out.println(acceleration);
 
 	}
 
