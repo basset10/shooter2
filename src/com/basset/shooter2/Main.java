@@ -21,6 +21,7 @@ public class Main extends HvlTemplateInteg2D {
 	public void initialize(){
 		LevelLoader.initialize();
 		getTextureLoader().loadResource("Tileset_Stone");
+		getTextureLoader().loadResource("Tileset_Stone2");
 		getTextureLoader().loadResource("Tileset_Tech");
 		getTextureLoader().loadResource("Tileset_Tech2");
 		getTextureLoader().loadResource("Tileset_Tech3");
@@ -60,13 +61,13 @@ public class Main extends HvlTemplateInteg2D {
 				+ "ldBaUURLbk\n"
 				+ "URldddrldr\n"
 				,""
-				+ "0000031221\n"
-				+ "0000032222\n"
-				+ "0330232233\n"
-				+ "0330232222\n"
-				+ "0000223232\n"
-				+ "0000000123\n"
-				+ "0000000121\n"
+				+ "0010042332\n"
+				+ "0100043333\n"
+				+ "0440343344\n"
+				+ "0440343333\n"
+				+ "0010334343\n"
+				+ "0000000234\n"
+				+ "0000000232\n"
 				,""
 				+ "0000000000\n"
 				+ "0000000000\n"
