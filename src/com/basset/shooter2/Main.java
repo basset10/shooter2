@@ -39,7 +39,7 @@ public class Main extends HvlTemplateInteg2D {
 
 
 
-		player = new Player(1280/2, 720/2);
+		player = new Player(200, 300);
 
 		/*
 		 * This is a complete outward-facing square in edge-definition layout syntax:
