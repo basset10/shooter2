@@ -1,5 +1,9 @@
 package com.basset.shooter2;
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuadc;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
+
 import org.lwjgl.opengl.Display;
 
 import com.osreboot.ridhvl.action.HvlAction0;
@@ -29,6 +33,7 @@ public class Main extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Tileset_Tech");
 		getTextureLoader().loadResource("Tileset_Tech2");
 		getTextureLoader().loadResource("Tileset_Tech3");
+		getTextureLoader().loadResource("Sprite_Tech_Support");
 
 		camera = new HvlCamera2D(Display.getWidth()/2, Display.getHeight()/2, 0, 1f, HvlCamera2D.ALIGNMENT_CENTER);
 
@@ -100,6 +105,14 @@ public class Main extends HvlTemplateInteg2D {
 					}
 
 				}
+				
+				hvlDrawQuadc(368, 225, 64, 64, getTexture(5));
+				hvlDrawQuadc(368, 375, 64, 64, getTexture(5));
+				
+				hvlRotate(650, 532, -90);
+				hvlDrawQuadc(650, 532, 64, 64, getTexture(5));
+				hvlResetRotation();
+				
 				Renderer.drawPlayer(player.getxPos(), player.getyPos(), player.getxSpeed(), player.getySpeed());
 			}
 		});
