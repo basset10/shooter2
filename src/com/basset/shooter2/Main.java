@@ -27,7 +27,10 @@ public class Main extends HvlTemplateInteg2D {
 
 	@Override
 	public void initialize(){
+		//Level loader needs a chance to initialize it's private variables
 		LevelLoader.initialize();
+		
+		//Loading the game textures
 		getTextureLoader().loadResource("Tileset_Stone");
 		getTextureLoader().loadResource("Tileset_Stone2");
 		getTextureLoader().loadResource("Tileset_Tech");
@@ -36,100 +39,81 @@ public class Main extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Sprite_Tech_Support");
 		getTextureLoader().loadResource("Sprite_Ore_1");
 
+		//Instantiate the camera with a preset perspective to be centered around an object.
 		camera = new HvlCamera2D(Display.getWidth()/2, Display.getHeight()/2, 0, 1f, HvlCamera2D.ALIGNMENT_CENTER);
-
-
-
+		
+		//Instantiate the player and give them a starting location.
 		player = new Player(200, 300);
 
-		/*
-		 * This is a complete outward-facing square in edge-definition layout syntax:
-		 * LUUUR
-		 * jccck
-		 * jccck
-		 * jccck
-		 * ldddr
-		 * 
-		 * And inward:
-		 * ccccc
-		 * cAdBc
-		 * ck jc
-		 * caUbc
-		 * ccccc
-		 * 
-		 * The LevelLoader maps go in the following order:
-		 * 1. Edge-definition
-		 * 2. Tileset selection
-		 * 3. Collision definition
-		 */
-		blocks = LevelLoader.loadLevel(50, 50, ""
-				+ "LUUURLUUUR\n"
-				+ "jccArldBck\n"
-				+ "jLRkLURlBk\n"
-				+ "jlrkjcaRjk\n"
-				+ "jccklddrjk\n"
-				+ "ldBaUURLbk\n"
-				+ "URldddrldr\n"
-				,""
-				+ "0010042332\n"
-				+ "0100043333\n"
-				+ "0440343344\n"
-				+ "0440343333\n"
-				+ "0010334343\n"
-				+ "0000000234\n"
-				+ "0000000232\n"
-				,""
-				+ "0000000000\n"
-				+ "0000000000\n"
-				+ "0000111000\n"
-				+ "0000111100\n"
-				+ "0000111100\n"
-				+ "0000000000\n"
-				+ "1100000000\n"
-				);
-
+		//Let's load a level for the player to explore.
+		//This level is defined by constant variables in the LevelConstants class.
+		blocks = LevelLoader.loadLevel(50, 50, 
+				LevelConstants.LEVEL1_EDGE, 
+				LevelConstants.LEVEL1_TILESHEETS, 
+				LevelConstants.LEVEL1_COLLISION);
 	}
 
 	@Override
 	public void update(float delta){
+		//Updating utilities that do things every frame
 		Renderer.update(delta);
 		player.update(delta);
+		
+		//Set the camera's location to the player's location
 		camera.setPosition(player.getxPos(), player.getyPos());
-
 		camera.doTransform(new HvlAction0() {
 			@Override
 			public void run() {
+				//VVVVV Begin camera transform VVVVV
+				//(everything after this line is drawn relative to the world)
+				
+				//Loop through every block in the level and draw it.
 				for(int i = 0; i < blocks.length; i++) {
-
+					
+					//This null check is necessary in case there are empty slots in the level array.
+					//E.g. {block0, block1, block2, block3, [], []}
+					//> with [] being null
 					if(blocks[i] != null) {
 						Renderer.drawBlock(blocks[i].getxPos(), blocks[i].getyPos(), blocks[i].getPatternIndex(), blocks[i].getTextureIndex(), blocks[i].getCollidable());
 					}
-
 				}
 				
-				hvlDrawQuadc(368, 225, 64, 64, getTexture(5));
-				hvlDrawQuadc(368, 375, 64, 64, getTexture(5));
+				//Let's draw some random textures to make things look nice
+				drawTestSprites();
 				
-				hvlRotate(650, 532, -90);
-				hvlDrawQuadc(650, 532, 64, 64, getTexture(5));
-				hvlResetRotation();
-				
-				hvlRotate(128, 222, 40);
-				hvlDrawQuadc(128, 222, 42, 42, getTexture(6));
-				hvlResetRotation();
-				
-				hvlRotate(370, 412, 120);
-				hvlDrawQuadc(370, 412, 32, 32, getTexture(6));
-				hvlResetRotation();
-				
+				//Draw the player
 				Renderer.drawPlayer(player.getxPos(), player.getyPos(), player.getxSpeed(), player.getySpeed());
+				
+				//^^^^^ End camera transform ^^^^^
 			}
 		});
-
-
-
-
 	}
-
+	
+	/**
+	 * This temporary experimental method draws a few test images I made
+	 * around the level.
+	 * 
+	 * @author os_reboot
+	 */
+	public void drawTestSprites(){
+		//Draw two supports at pixel-perfect locations
+		hvlDrawQuadc(368, 225, 64, 64, getTexture(5));
+		hvlDrawQuadc(368, 375, 64, 64, getTexture(5));
+		
+		//Draw a rotated support
+		hvlRotate(650, 532, -90);
+		hvlDrawQuadc(650, 532, 64, 64, getTexture(5));
+		hvlResetRotation();
+		
+		//Draw a rotated ore sprite
+		hvlRotate(128, 222, 40);
+		hvlDrawQuadc(128, 222, 42, 42, getTexture(6));
+		hvlResetRotation();
+		
+		//Draw another rotated ore sprite
+		hvlRotate(370, 412, 120);
+		hvlDrawQuadc(370, 412, 32, 32, getTexture(6));
+		hvlResetRotation();
+	}
 
 }
