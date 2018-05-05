@@ -34,6 +34,7 @@ public class Main extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Tileset_Tech2");
 		getTextureLoader().loadResource("Tileset_Tech3");
 		getTextureLoader().loadResource("Sprite_Tech_Support");
+		getTextureLoader().loadResource("Sprite_Ore_1");
 
 		camera = new HvlCamera2D(Display.getWidth()/2, Display.getHeight()/2, 0, 1f, HvlCamera2D.ALIGNMENT_CENTER);
 
@@ -111,6 +112,14 @@ public class Main extends HvlTemplateInteg2D {
 				
 				hvlRotate(650, 532, -90);
 				hvlDrawQuadc(650, 532, 64, 64, getTexture(5));
+				hvlResetRotation();
+				
+				hvlRotate(128, 222, 40);
+				hvlDrawQuadc(128, 222, 42, 42, getTexture(6));
+				hvlResetRotation();
+				
+				hvlRotate(370, 412, 120);
+				hvlDrawQuadc(370, 412, 32, 32, getTexture(6));
 				hvlResetRotation();
 				
 				Renderer.drawPlayer(player.getxPos(), player.getyPos(), player.getxSpeed(), player.getySpeed());
