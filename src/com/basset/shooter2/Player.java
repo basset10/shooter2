@@ -110,6 +110,10 @@ public class Player {
 							xSpeed = Math.max(0, xSpeed);
 							newxPos = b.getxPos() + (Block.BLOCK_SIZE/2);
 						}
+						if(!right && !above){
+							ySpeed = Math.min(0, ySpeed);
+							newyPos = b.getyPos() - (Block.BLOCK_SIZE/2);
+						}
 					}
 					if(plRight && plBelow){
 						if(right){
@@ -119,6 +123,10 @@ public class Player {
 						if(below){
 							xSpeed = Math.max(0, xSpeed);
 							newxPos = b.getxPos() + (Block.BLOCK_SIZE/2);
+						}
+						if(!right && !below){
+							ySpeed = Math.max(0, ySpeed);
+							newyPos = b.getyPos() + (Block.BLOCK_SIZE/2);
 						}
 					}
 					if(plLeft && plAbove){
@@ -130,6 +138,10 @@ public class Player {
 							xSpeed = Math.min(0, xSpeed);
 							newxPos = b.getxPos() - (Block.BLOCK_SIZE/2);
 						}
+						if(!left && !above){
+							ySpeed = Math.min(0, ySpeed);
+							newyPos = b.getyPos() - (Block.BLOCK_SIZE/2);
+						}
 					}
 					if(plLeft && plBelow){
 						if(left){
@@ -139,6 +151,10 @@ public class Player {
 						if(below){
 							xSpeed = Math.min(0, xSpeed);
 							newxPos = b.getxPos() - (Block.BLOCK_SIZE/2);
+						}
+						if(!left && !below){
+							ySpeed = Math.max(0, ySpeed);
+							newyPos = b.getyPos() + (Block.BLOCK_SIZE/2);
 						}
 					}
 				}
