@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlCoord2D;
+import com.osreboot.ridhvl.HvlMath;
 
 public class Renderer {
 
@@ -17,15 +18,24 @@ public class Renderer {
 	public static final int PLAYER_FOOTSTEP_COUNT = 10;
 
 	public static void update(float delta){
+
 		playerTimer += delta;
 
 		playerMoveAmount += delta;
+		
+		opacity = HvlMath.stepTowards(opacity, delta * 1.3f, opacityGoal);
 	}
-
+	private static float opacity = 0;
+	private static float opacityGoal = 0;
 	private static float playerTimer = 0, playerMoveAmount = 0;
 	private static ArrayList<HvlCoord2D> playerSteps = new ArrayList<>();
 
-	public static void drawPlayer(float xArg, float yArg, float xSpeedArg, float ySpeedArg){
+	public static void drawPlayer(float xArg, float yArg, float xSpeedArg, float ySpeedArg, float accelerationArg){
+
+		opacityGoal = Math.max(Math.abs(xSpeedArg), Math.abs(ySpeedArg));
+		opacityGoal = HvlMath.mapl(opacityGoal, 260, 400, 0, 1);
+
+
 
 		if(playerMoveAmount > PLAYER_FOOTSTEP_FREQUENCY){
 			playerMoveAmount = 0;
@@ -36,45 +46,46 @@ public class Renderer {
 		for(HvlCoord2D c : playerSteps){
 			count++;
 			float size = (count - (playerMoveAmount/PLAYER_FOOTSTEP_FREQUENCY))/playerSteps.size();
-			if(Math.abs(xSpeedArg) >= 400 || Math.abs(ySpeedArg) >= 400) {
-				hvlDrawQuadc(c.x, c.y, size*PLAYER_FOOTSTEP_SIZE, size*PLAYER_FOOTSTEP_SIZE, Color.red);
-			}else {
-				hvlDrawQuadc(c.x, c.y, size*PLAYER_FOOTSTEP_SIZE, size*PLAYER_FOOTSTEP_SIZE, Color.blue);
-			}
+
+			hvlDrawQuadc(c.x, c.y, size*PLAYER_FOOTSTEP_SIZE, size*PLAYER_FOOTSTEP_SIZE, Color.blue);
+
+
+
+			hvlDrawQuadc(c.x, c.y, size*PLAYER_FOOTSTEP_SIZE, size*PLAYER_FOOTSTEP_SIZE, new Color(1.0f, 0.0f, 0.0f, opacity));
+
+
 		}
 
 
-		if(Math.abs(xSpeedArg) >= 400 || Math.abs(ySpeedArg) >= 400) {
-			hvlRotate(xArg, yArg, playerTimer * 100f);
-			hvlDrawQuadc(xArg, yArg, Player.PLAYER_SIZE * 1.0f, Player.PLAYER_SIZE  * 1.0f, new Color(1f, 0.1f, 0.1f));
-			hvlResetRotation();
-		}else{
-			hvlRotate(xArg, yArg, playerTimer * 100f);
-			hvlDrawQuadc(xArg, yArg, Player.PLAYER_SIZE * 1.0f, Player.PLAYER_SIZE  * 1.0f, new Color(0.1f, 0.1f, 1f));
-			hvlResetRotation();
-		}
 
-		if(Math.abs(xSpeedArg) >= 400 || Math.abs(ySpeedArg) >= 400) {
-			hvlRotate(xArg, yArg, -playerTimer * 200f);
-			hvlDrawQuadc(xArg, yArg, Player.PLAYER_SIZE * 1.1f, Player.PLAYER_SIZE  * 1.1f, new Color(1f, 0.2f, 0.2f));
-			hvlResetRotation();
-		}else{
-			hvlRotate(xArg, yArg, -playerTimer * 200f);
-			hvlDrawQuadc(xArg, yArg, Player.PLAYER_SIZE * 1.1f, Player.PLAYER_SIZE  * 1.1f, new Color(0.2f, 0.2f, 1f));
-			hvlResetRotation();
-		}
+		hvlRotate(xArg, yArg, playerTimer * 100f);
 
-		if(Math.abs(xSpeedArg) >= 400 || Math.abs(ySpeedArg) >= 400) {
-			hvlDrawQuadc(xArg, yArg, 
-					Player.PLAYER_SIZE * ((float)Math.sin(playerTimer*5f)*0.2f + 1f), 
-					Player.PLAYER_SIZE * ((float)Math.sin(playerTimer*5f)*0.2f + 1f),				
-					new Color(((float)Math.sin(playerTimer*10f)*0.2f + 0.8f), 0f, 0f));
-		}else{
-			hvlDrawQuadc(xArg, yArg, 
-					Player.PLAYER_SIZE * ((float)Math.sin(playerTimer*5f)*0.2f + 1f), 
-					Player.PLAYER_SIZE * ((float)Math.sin(playerTimer*5f)*0.2f + 1f),				
-					new Color(0f, 0f, (float)Math.sin(playerTimer*10f)*0.2f + 0.8f));
-		}
+		hvlDrawQuadc(xArg, yArg, Player.PLAYER_SIZE * 1.0f, Player.PLAYER_SIZE  * 1.0f, new Color(0.1f, 0.1f, 1f));
+		hvlDrawQuadc(xArg, yArg, Player.PLAYER_SIZE * 1.0f, Player.PLAYER_SIZE  * 1.0f, new Color(1.0f, 0.1f, 0.1f, opacity));
+
+		hvlResetRotation();
+
+
+		hvlRotate(xArg, yArg, -playerTimer * 200f);
+		hvlDrawQuadc(xArg, yArg, Player.PLAYER_SIZE * 1.1f, Player.PLAYER_SIZE  * 1.1f, new Color(0.2f, 0.2f, 1f));
+		hvlDrawQuadc(xArg, yArg, Player.PLAYER_SIZE * 1.1f, Player.PLAYER_SIZE  * 1.1f, new Color(1.0f, 0.2f, 0.2f, opacity));
+		hvlResetRotation();
+
+
+
+
+
+		hvlDrawQuadc(xArg, yArg, 
+				Player.PLAYER_SIZE * ((float)Math.sin(playerTimer*5f)*0.2f + 1f), 
+				Player.PLAYER_SIZE * ((float)Math.sin(playerTimer*5f)*0.2f + 1f),				
+				new Color(0f, 0f, (float)Math.sin(playerTimer*10f)*0.2f + 0.8f));
+
+
+		hvlDrawQuadc(xArg, yArg, 
+				Player.PLAYER_SIZE * ((float)Math.sin(playerTimer*5f)*0.2f + 1f), 
+				Player.PLAYER_SIZE * ((float)Math.sin(playerTimer*5f)*0.2f + 1f),				
+				new Color((float)Math.sin(playerTimer*10f)*0.2f + 0.8f, 0f, 0f, opacity));
+
 
 	}
 

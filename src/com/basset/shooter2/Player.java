@@ -130,5 +130,9 @@ public class Player {
 	public void setySpeed(float yArg) {
 		ySpeed = yArg;
 	}
+	
+	public float getAcceleration() {
+		return acceleration;
+	}
 
 }
