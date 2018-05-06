@@ -1,7 +1,9 @@
 package com.basset.shooter2;
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
+
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
+import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlMath;
 
@@ -28,12 +30,9 @@ public class Player {
 
 	}
 
-	public void update(float delta) {
-		
+	public void update(float delta, Block[] blocks) {
 		acceleration = HvlMath.stepTowards(acceleration, delta*97500, ((HvlMath.distance(0, 0, xSpeed, ySpeed)) * PLAYER_ACCELERATION) + 100);
-		
-		
-		
+
 		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
 			maxSpeed = 400;
 		}else {
@@ -65,9 +64,38 @@ public class Player {
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			xSpeed = HvlMath.stepTowards(xSpeed, acceleration * delta, -maxSpeed);
 		}
-		
-		yPos = HvlMath.limit(yPos+(delta * ySpeed), 0, Display.getHeight());
-		xPos = HvlMath.limit(xPos+(delta * xSpeed), 0, Display.getWidth());
+
+		//VVVVV Handling collision below VVVVV
+		float newyPos = yPos + (delta * ySpeed);
+		float newxPos = xPos + (delta * xSpeed);
+		for(Block b : blocks){
+			if(b.getCollidable()){
+				if(newyPos >= b.getyPos() - (Block.BLOCK_SIZE/2) && newyPos <= b.getyPos() + (Block.BLOCK_SIZE/2) && 
+						newxPos >= b.getxPos() - (Block.BLOCK_SIZE/2) && newxPos <= b.getxPos() + (Block.BLOCK_SIZE/2)){
+					float relativeY = newyPos - b.getyPos();
+					float relativeX = newxPos - b.getxPos();
+					if(Math.abs(relativeX) > Math.abs(relativeY)){
+						if(relativeX > 0){
+							xSpeed = Math.max(0, xSpeed);
+							newxPos = b.getxPos() + (Block.BLOCK_SIZE/2);
+						}else{
+							xSpeed = Math.min(0, xSpeed);
+							newxPos = b.getxPos() - (Block.BLOCK_SIZE/2);
+						}
+					}else{
+						if(relativeY > 0){
+							ySpeed = Math.max(0, ySpeed);
+							newyPos = b.getyPos() + (Block.BLOCK_SIZE/2);
+						}else{
+							ySpeed = Math.min(0, ySpeed);
+							newyPos = b.getyPos() - (Block.BLOCK_SIZE/2);
+						}
+					}
+				}
+			}
+		}
+		yPos = newyPos;
+		xPos = newxPos;
 
 	}
 

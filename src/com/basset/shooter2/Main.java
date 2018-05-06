@@ -57,7 +57,7 @@ public class Main extends HvlTemplateInteg2D {
 	public void update(float delta){
 		//Updating utilities that do things every frame
 		Renderer.update(delta);
-		player.update(delta);
+		player.update(delta, blocks);
 		
 		//Set the camera's location to the player's location
 		camera.setPosition(player.getxPos(), player.getyPos());
