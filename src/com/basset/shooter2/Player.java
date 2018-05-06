@@ -65,7 +65,6 @@ public class Player {
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			xSpeed = HvlMath.stepTowards(xSpeed, acceleration * delta, -maxSpeed);
 		}
-
 		
 		yPos = HvlMath.limit(yPos+(delta * ySpeed), 0, Display.getHeight());
 		xPos = HvlMath.limit(xPos+(delta * xSpeed), 0, Display.getWidth());
