@@ -93,6 +93,7 @@ public class Renderer {
 		float uvx = 1f - (float)(patternIndexArg % 4)*0.25f;
 		float uvy = 1f - (float)(patternIndexArg / 4)*0.25f;
 		Color color = collision ? new Color(0.15f, 0.15f, 0.15f) : Color.white;
+		//color = new Color(color.r, color.g, color.b, 0.5f);
 		hvlDrawQuadc(xArg, yArg, Block.BLOCK_SIZE, Block.BLOCK_SIZE, uvx, uvy, uvx - 0.25f, uvy - 0.25f, Main.getTexture(textureIndex), color);
 	}
 
