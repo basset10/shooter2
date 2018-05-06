@@ -18,13 +18,11 @@ public class Player {
 	private float acceleration = 1.00f;
 
 	public Player(float x, float y) {
-
 		xPos = x;
 		yPos = y;
 
 		xSpeed = 0;
 		ySpeed = 0;
-
 	}
 
 	public void update(float delta, Block[] blocks) {
@@ -63,20 +61,31 @@ public class Player {
 		}
 
 		//VVVVV Handling collision below VVVVV
+		
+		//Calculate the player's new position
 		float newyPos = yPos + (delta * ySpeed);
 		float newxPos = xPos + (delta * xSpeed);
+		
 		for(Block b : blocks){
 			if(b.getCollidable()){
+				
+				//If the player will collide with the block when their position is updated
 				if(newyPos >= b.getyPos() - (Block.BLOCK_SIZE/2) && newyPos <= b.getyPos() + (Block.BLOCK_SIZE/2) && 
 						newxPos >= b.getxPos() - (Block.BLOCK_SIZE/2) && newxPos <= b.getxPos() + (Block.BLOCK_SIZE/2)){
+					
+					//Variables for block's proximity to other blocks
 					boolean above = checkForCollidableBlock(b.getxPos(), b.getyPos(), 0, -1, blocks);
 					boolean below = checkForCollidableBlock(b.getxPos(), b.getyPos(), 0, 1, blocks);
 					boolean left = checkForCollidableBlock(b.getxPos(), b.getyPos(), -1, 0, blocks);
 					boolean right = checkForCollidableBlock(b.getxPos(), b.getyPos(), 1, 0, blocks);
+					
+					//Variables for player's proximity to the block
 					boolean plRight = xPos >= b.getxPos() + (Block.BLOCK_SIZE/2);
 					boolean plLeft = xPos <= b.getxPos() - (Block.BLOCK_SIZE/2);
 					boolean plBelow = yPos >= b.getyPos() + (Block.BLOCK_SIZE/2);
 					boolean plAbove = yPos <= b.getyPos() - (Block.BLOCK_SIZE/2);
+					
+					//Handling head-on face collisions
 					if(plRight && !plLeft && !plBelow && !plAbove){//FLAT RIGHT COLLISION
 						xSpeed = Math.max(0, xSpeed);
 						newxPos = b.getxPos() + (Block.BLOCK_SIZE/2);
@@ -90,6 +99,8 @@ public class Player {
 						ySpeed = Math.min(0, ySpeed);
 						newyPos = b.getyPos() - (Block.BLOCK_SIZE/2);
 					}
+					
+					//Handling corner collisions
 					if(plRight && plAbove){
 						if(right){
 							ySpeed = Math.min(0, ySpeed);
@@ -133,6 +144,8 @@ public class Player {
 				}
 			}
 		}
+		
+		//Finally update the player's position based on collision-recalculated values
 		yPos = newyPos;
 		xPos = newxPos;
 
@@ -151,17 +164,9 @@ public class Player {
 		return xPos;
 	}
 
-	/*public void setxPos(float xArg) {
-		xPos = xArg;
-	}*/
-
 	public float getyPos() {
 		return yPos;
 	}
-
-	/*public void setyPos(float yArg) {
-		yPos = yArg;
-	}*/
 
 	public float getxSpeed() {
 		return xSpeed;
