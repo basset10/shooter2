@@ -82,7 +82,7 @@ public class Main extends HvlTemplateInteg2D {
 				drawTestSprites();
 				
 				//Draw the player
-				Renderer.drawPlayer(player.getxPos(), player.getyPos(), player.getxSpeed(), player.getySpeed());
+				Renderer.drawPlayer(player.getxPos(), player.getyPos(), player.getxSpeed(), player.getySpeed(), player.getAcceleration());
 				
 				//^^^^^ End camera transform ^^^^^
 			}
