@@ -6,7 +6,7 @@ package com.basset.shooter2;
  * @author os_reboot
  */
 public class LevelConstants {
-	
+	/*
 	public static final String LEVEL1_EDGE = ""
 			+ "LUUURLUUUR\n"
 			+ "jccArldBck\n"
@@ -31,6 +31,40 @@ public class LevelConstants {
 			+ "0000111100\n"
 			+ "0000000000\n"
 			+ "1100000000\n";
+			*/
+	
+	
+	public static final String LEVEL1_EDGE = ""
+			+ "LUUUUUUUUUUR\n"
+			+ "jcccccccccck\n"
+			+ "jjccArldBckk\n"
+			+ "jjLRkLURlBkk\n"
+			+ "jjlrkjcaRjkk\n"
+			+ "jjccklddrjkk\n"
+			+ "jldBaUURLbkk\n"
+			+ "jURldddrldrk\n"
+			+ "lddddddddddr\n";	
+	public static final String LEVEL1_TILESHEETS = ""
+			+ "000100423323\n"
+			+ "000100423322\n"
+			+ "001000433333\n"
+			+ "004403433442\n"
+			+ "004403433333\n"
+			+ "000103343432\n"
+			+ "000000002343\n"
+			+ "000000002342\n"
+			+ "000000002324\n";
+	public static final String LEVEL1_COLLISION = ""
+			+ "000000000000\n"
+			+ "000000000000\n"
+			+ "000000000000\n"
+			+ "000001110000\n"
+			+ "000001111000\n"
+			+ "000001111000\n"
+			+ "000000000000\n"
+			+ "011000000000\n"
+			+ "000000000000\n";
+	
 	
 	/*
 	 * FOR REFERENCE:

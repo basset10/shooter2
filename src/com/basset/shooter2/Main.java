@@ -79,7 +79,7 @@ public class Main extends HvlTemplateInteg2D {
 				}
 				
 				//Let's draw some random textures to make things look nice
-				drawTestSprites();
+				//drawTestSprites();
 				
 				//Draw the player
 				Renderer.drawPlayer(player.getxPos(), player.getyPos(), player.getxSpeed(), player.getySpeed(), player.getAcceleration());
