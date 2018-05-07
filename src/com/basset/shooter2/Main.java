@@ -31,11 +31,11 @@ public class Main extends HvlTemplateInteg2D {
 		LevelLoader.initialize();
 		
 		//Loading the game textures
-		getTextureLoader().loadResource("Tileset_Stone");
-		getTextureLoader().loadResource("Tileset_Stone2");
-		getTextureLoader().loadResource("Tileset_Tech");
-		getTextureLoader().loadResource("Tileset_Tech2");
-		getTextureLoader().loadResource("Tileset_Tech3");
+		getTextureLoader().loadResource("Tileset_Stone");	//This becomes tilesheet index 0
+		getTextureLoader().loadResource("Tileset_Stone2");	//This becomes tilesheet index 1
+		getTextureLoader().loadResource("Tileset_Tech");	//This becomes tilesheet index 2
+		getTextureLoader().loadResource("Tileset_Tech2");	//This becomes tilesheet index 3
+		getTextureLoader().loadResource("Tileset_Tech3");	//This becomes tilesheet index 4
 		getTextureLoader().loadResource("Sprite_Tech_Support");
 		getTextureLoader().loadResource("Sprite_Ore_1");
 
@@ -46,11 +46,11 @@ public class Main extends HvlTemplateInteg2D {
 		player = new Player(200, 300);
 
 		//Let's load a level for the player to explore.
-		//This level is defined by constant variables in the LevelConstants class.
+		String[] fileLevel = LevelLoader.getLevelFromFile("res\\Level1.txt");
 		blocks = LevelLoader.loadLevel(50, 50, 
-				LevelConstants.LEVEL1_EDGE, 
-				LevelConstants.LEVEL1_TILESHEETS, 
-				LevelConstants.LEVEL1_COLLISION);
+				fileLevel[0],//The edge map loaded from our text file 
+				fileLevel[1],//The tilesheet map loaded from our text file 
+				fileLevel[2]);//The collision map loaded from our text file
 	}
 
 	@Override

@@ -67,7 +67,7 @@ public class Player {
 		float newxPos = xPos + (delta * xSpeed);
 		
 		for(Block b : blocks){
-			if(b.getCollidable()){
+			if(b != null && b.getCollidable()){
 				
 				//If the player will collide with the block when their position is updated
 				if(newyPos >= b.getyPos() - (Block.BLOCK_SIZE/2) && newyPos <= b.getyPos() + (Block.BLOCK_SIZE/2) && 
@@ -169,7 +169,7 @@ public class Player {
 
 	private boolean checkForCollidableBlock(float x, float y, int relativeX, int relativeY, Block[] blocks){
 		for(Block b : blocks){
-			if(b.getCollidable())
+			if(b != null && b.getCollidable())
 				if(b.getxPos() == x + ((float)relativeX*Block.BLOCK_SIZE) &&
 					b.getyPos() == y + ((float)relativeY*Block.BLOCK_SIZE)) return true;
 		}

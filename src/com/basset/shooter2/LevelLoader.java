@@ -1,5 +1,8 @@
 package com.basset.shooter2;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class LevelLoader {
 
 	public static BlockCode[] codes;
@@ -9,7 +12,7 @@ public class LevelLoader {
 	 */
 	public static void initialize() {
 		codes = new BlockCode[] {
-				new BlockCode('n',-1),
+				new BlockCode(' ',-1),
 				new BlockCode('L',0),
 				new BlockCode('U',1),
 				new BlockCode('R',3),
@@ -24,6 +27,27 @@ public class LevelLoader {
 				new BlockCode('r',15),
 				new BlockCode('c', new int[]{2,4,11,13})
 		};
+	}
+
+	public static String[] getLevelFromFile(String path){
+		try{
+			BufferedReader reader = new BufferedReader(new FileReader(path));
+			String[] output = new String[]{"", "", ""};
+
+			int mapIndex = 0;
+			String line = "";
+			while((line = reader.readLine()) != null){
+				if(!line.startsWith(",")){
+					output[mapIndex] += line + "\n";
+				}else mapIndex++;
+			}
+
+			reader.close();
+			return output;
+		}catch(Exception e){
+			System.out.println("This file doesn't exist you stupid idiot.");
+		}
+		return null;
 	}
 
 	/**
@@ -46,38 +70,39 @@ public class LevelLoader {
 	public static Block[] loadLevel(float xArg, float yArg, String levelArg, String indexMapArg, String collisionMapArg){
 		//Prepare an output array
 		Block[] output = new Block[levelArg.replace("\n", "").length()];
-		
+
 		//Split each map into rows for further analysis
 		String[] rows = levelArg.split("\n");
 		String[] rowsIM = indexMapArg.split("\n");
 		String[] rowsCM = collisionMapArg.split("\n");
-		
+
 		//Check that rows are equal size
 		if(rows.length != rowsIM.length && rows.length != rowsCM.length) System.out.println("Level string not equal size to a map string!");
-		
+
 		//Loop through each row
 		int currentIndex = 0;
 		for(float y = 0; y < rows.length; y++){
-			
+
 			//Check that rows are equal size
 			if(rows[(int)y].length() != rowsIM[(int)y].length() && rows[(int)y].length() != rowsCM[(int)y].length()) 
 				System.out.println("Level string not equal size to a map string!");
-			
+
 			//Loop through each column
 			for(float x = 0; x < rows[(int)y].length(); x++){
-				
+
 				//Separate the block's edge code
 				int code = parseBlockCode(rows[(int)y].charAt((int)x));
-				
-				//Separate the block's collision code
-				boolean collision = rowsCM[(int)y].charAt((int)x) == '1' ? true : false;
-				
+
 				//Make sure we want to draw the block instead of hiding it (use 'n' to hide blocks in the level maps)
-				if(code != -1)
+				if(code != -1){
+					//Separate the block's collision code
+					boolean collision = rowsCM[(int)y].charAt((int)x) == '1' ? true : false;
+					
 					//Finally create out block object and add it to the output array
 					output[currentIndex] = new Block(xArg + (x*Block.BLOCK_SIZE), yArg + (y*Block.BLOCK_SIZE), 
 							code, Integer.parseInt(rowsIM[(int)y].charAt((int)x) + ""), collision);
-				
+				}
+
 				//Go to the next character and loop to create more block objects
 				currentIndex++;
 			}
@@ -96,7 +121,7 @@ public class LevelLoader {
 	private static int parseBlockCode(char blockCode) {
 		int number = 0;
 		for(int i = 0; i < codes.length; i++){//Loop to find the corresponding code
-			
+
 			//If we found the correct code set the output to it's value from the 'codes' array.
 			if(codes[i].getKey() == blockCode) number = codes[i].getValue();
 		}
