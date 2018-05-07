@@ -90,11 +90,23 @@ public class Renderer {
 	}
 
 	public static void drawBlock(float xArg, float yArg, int patternIndexArg, int textureIndex, boolean collision){
+		//Set the UV based on the specific tile needed to draw (edge tiles, core tiles, etc.)
 		float uvx = 1f - (float)(patternIndexArg % 4)*0.25f;
 		float uvy = 1f - (float)(patternIndexArg / 4)*0.25f;
-		Color color = collision ? new Color(0.15f, 0.15f, 0.15f) : Color.white;
-		//Color color = collision ? new Color(0.8f, 0.8f, 0.8f) : Color.white;
-		//color = new Color(color.r, color.g, color.b, 0.5f);
+		
+		//Re-color block for dev mode
+		Color color = Color.white;
+		if(Main.DEV_MODE_ENABLED){
+			java.awt.Color color2 = java.awt.Color.getHSBColor(((float)textureIndex * 0.12345f)%1.0f, 0.7f, 0.5f);
+			color = new Color(color2.getRed(), color2.getGreen(), color2.getBlue());
+		}
+		textureIndex = Main.DEV_MODE_ENABLED ? 0 : textureIndex + 1;
+		
+		//Shade block if collision is enabled
+		float shadeAmount = Main.DEV_MODE_ENABLED ? 0.45f : 0.15f;
+		if(collision) color = new Color(color.r * shadeAmount, color.g * shadeAmount, color.b * shadeAmount);
+		
+		//Finally draw the block
 		hvlDrawQuadc(xArg, yArg, Block.BLOCK_SIZE, Block.BLOCK_SIZE, uvx, uvy, uvx - 0.25f, uvy - 0.25f, Main.getTexture(textureIndex), color);
 	}
 

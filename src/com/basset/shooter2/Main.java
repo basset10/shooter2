@@ -17,6 +17,8 @@ public class Main extends HvlTemplateInteg2D {
 		new Main();
 	}
 
+	public static final boolean DEV_MODE_ENABLED = false;
+	
 	Player player;
 	Block[] blocks;
 	HvlCamera2D camera;
@@ -31,6 +33,7 @@ public class Main extends HvlTemplateInteg2D {
 		LevelLoader.initialize();
 		
 		//Loading the game textures
+		getTextureLoader().loadResource("Tileset_Dev");
 		getTextureLoader().loadResource("Tileset_Stone");	//This becomes tilesheet index 0
 		getTextureLoader().loadResource("Tileset_Stone2");	//This becomes tilesheet index 1
 		getTextureLoader().loadResource("Tileset_Tech");	//This becomes tilesheet index 2
