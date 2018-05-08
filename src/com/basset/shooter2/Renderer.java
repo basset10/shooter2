@@ -3,10 +3,10 @@ package com.basset.shooter2;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuadc;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotatea;
 
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlCoord2D;
@@ -93,11 +93,19 @@ public class Renderer {
 		
 		//Draw directional indicator
 		
-		hvlDrawQuadc(500, 500, 8, 20, Color.green);
+		float degRot = HvlMath.fullRadians(new HvlCoord2D(Display.getWidth()/2f, Display.getHeight()/2f), HvlCursor.getCursorPosition());
+		
+		hvlRotate(xArg, yArg, degRot * (180f /(float)Math.PI) + 90) ;
 		
 		
-		
+		hvlDrawQuadc(xArg, yArg + 25, 6, 12, Color.white);
 
+		hvlDrawQuadc(xArg, yArg + 25, 4, 10, Color.blue);
+		
+		hvlDrawQuadc(xArg, yArg + 25, 4, 10, new Color(1.0f, 0f, 0f, opacity));
+
+		
+		hvlResetRotation();
 
 	}
 
@@ -125,22 +133,23 @@ public class Renderer {
 	public static void drawCrosshair(){
 		
 		//hvlRotate(HvlCursor.getCursorX(), HvlCursor.getCursorY(), playerTimer * 50);
-		
 
-		//Top section
 		hvlDrawQuadc(HvlCursor.getCursorX(), HvlCursor.getCursorY() - (8 + ((float)Math.sin(playerTimer*10)*3)), 4, 12, Color.black);
+		hvlDrawQuadc(HvlCursor.getCursorX() + (8 + ((float)Math.sin(playerTimer*10)*3)), HvlCursor.getCursorY(), 12, 4, Color.black);
+		hvlDrawQuadc(HvlCursor.getCursorX() - (8 + ((float)Math.sin(playerTimer*10)*3)), HvlCursor.getCursorY(), 12, 4, Color.black);
+		hvlDrawQuadc(HvlCursor.getCursorX(), HvlCursor.getCursorY() + (8 + ((float)Math.sin(playerTimer*10)*3)), 4, 12, Color.black);
+
+		
+		//Top section
 		hvlDrawQuadc(HvlCursor.getCursorX(), HvlCursor.getCursorY() - (8 + ((float)Math.sin(playerTimer*10)*3)), 2, 10, Color.white);
 		
 		//Right section
-		hvlDrawQuadc(HvlCursor.getCursorX() + (8 + ((float)Math.sin(playerTimer*10)*3)), HvlCursor.getCursorY(), 12, 4, Color.black);
 		hvlDrawQuadc(HvlCursor.getCursorX() + (8 + ((float)Math.sin(playerTimer*10)*3)), HvlCursor.getCursorY(), 10, 2, Color.white);
 		
 		//Left section
-		hvlDrawQuadc(HvlCursor.getCursorX() - (8 + ((float)Math.sin(playerTimer*10)*3)), HvlCursor.getCursorY(), 12, 4, Color.black);
 		hvlDrawQuadc(HvlCursor.getCursorX() - (8 + ((float)Math.sin(playerTimer*10)*3)), HvlCursor.getCursorY(), 10, 2, Color.white);
 		
 		//Bottom section
-		hvlDrawQuadc(HvlCursor.getCursorX(), HvlCursor.getCursorY() + (8 + ((float)Math.sin(playerTimer*10)*3)), 4, 12, Color.black);
 		hvlDrawQuadc(HvlCursor.getCursorX(), HvlCursor.getCursorY() + (8 + ((float)Math.sin(playerTimer*10)*3)), 2, 10, Color.white);
 		
 		//hvlResetRotation();
