@@ -94,6 +94,7 @@ public class Main extends HvlTemplateInteg2D {
 				//Draw the player
 				Renderer.drawPlayer(player.getxPos(), player.getyPos(), player.getxSpeed(), player.getySpeed(), player.getAcceleration());
 				
+				Renderer.drawEnemy(450, 450, false, player);
 				//^^^^^ End camera transform ^^^^^
 			}
 		});
