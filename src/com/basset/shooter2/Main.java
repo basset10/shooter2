@@ -35,11 +35,11 @@ public class Main extends HvlTemplateInteg2D {
 		
 		//Loading the game textures
 		getTextureLoader().loadResource("Tileset_Dev");
-		getTextureLoader().loadResource("Tileset_Stone");	//This becomes tilesheet index 0
-		getTextureLoader().loadResource("Tileset_Stone2");	//This becomes tilesheet index 1
-		getTextureLoader().loadResource("Tileset_Tech");	//This becomes tilesheet index 2
-		getTextureLoader().loadResource("Tileset_Tech2");	//This becomes tilesheet index 3
-		getTextureLoader().loadResource("Tileset_Tech3");	//This becomes tilesheet index 4
+		getTextureLoader().loadResource("Tileset_Stone");	//This becomes tilesheet index 0 (stone)
+		getTextureLoader().loadResource("Tileset_Stone2");	//This becomes tilesheet index 1 (stone ore)
+		getTextureLoader().loadResource("Tileset_Tech");	//This becomes tilesheet index 2 (tech lights)
+		getTextureLoader().loadResource("Tileset_Tech2");	//This becomes tilesheet index 3 (tech)
+		getTextureLoader().loadResource("Tileset_Tech3");	//This becomes tilesheet index 4 (tech vents)
 		getTextureLoader().loadResource("Sprite_Tech_Support");
 		getTextureLoader().loadResource("Sprite_Ore_1");
 
