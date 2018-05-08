@@ -4,6 +4,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuadc;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import com.osreboot.ridhvl.action.HvlAction0;
@@ -59,6 +60,12 @@ public class Main extends HvlTemplateInteg2D {
 	@Override
 	public void update(float delta){
 		//Updating utilities that do things every frame
+		
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+			exit();
+		}
+		
 		Renderer.update(delta);
 		player.update(delta, blocks);
 		
@@ -90,6 +97,9 @@ public class Main extends HvlTemplateInteg2D {
 				//^^^^^ End camera transform ^^^^^
 			}
 		});
+		
+		Renderer.drawCrosshair();
+		
 	}
 	
 	/**
