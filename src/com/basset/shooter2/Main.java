@@ -23,6 +23,7 @@ public class Main extends HvlTemplateInteg2D {
 	Player player;
 	Block[] blocks;
 	HvlCamera2D camera;
+	Enemy[] enemies;
 
 	public Main(){
 		super(144, 1000, 700, "SHHHHHHHOOOOOOOOOOOOOOOOOOOOTER2", new HvlDisplayModeDefault());
@@ -48,7 +49,15 @@ public class Main extends HvlTemplateInteg2D {
 		
 		//Instantiate the player and give them a starting location.
 		player = new Player(200, 300);
+		
+		//Instantiate first enemy
+		enemies = new Enemy[] {
+				
+				new Enemy(450, 450),
+				new Enemy(600, 600)
 
+		};
+				
 		//Let's load a level for the player to explore.
 		String[] fileLevel = LevelLoader.getLevelFromFile("res\\Level1.txt");
 		blocks = LevelLoader.loadLevel(50, 50, 
@@ -62,12 +71,25 @@ public class Main extends HvlTemplateInteg2D {
 		//Updating utilities that do things every frame
 		
 		
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_X)) {
+			
+			for(int i = 0; i < enemies.length; i++) {
+			enemies[i].setHealth(enemies[i].getHealth() - delta);
+			}
+			
+		}
+		
+		
 		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			exit();
 		}
 		
 		Renderer.update(delta);
 		player.update(delta, blocks);
+		for(int i = 0; i < enemies.length; i++) {
+		enemies[i].update(delta, blocks, player);
+		}
 		
 		//Set the camera's location to the player's location
 		camera.setPosition(player.getxPos(), player.getyPos());
@@ -94,7 +116,10 @@ public class Main extends HvlTemplateInteg2D {
 				//Draw the player
 				Renderer.drawPlayer(player.getxPos(), player.getyPos(), player.getxSpeed(), player.getySpeed(), player.getAcceleration());
 				
-				Renderer.drawEnemy(450, 450, false, player);
+				
+				for(int i = 0; i < enemies.length; i++) {
+				Renderer.drawEnemy(enemies[i].getX(), enemies[i].getY(), enemies[i].getAlerted(), player);
+				}
 				//^^^^^ End camera transform ^^^^^
 			}
 		});

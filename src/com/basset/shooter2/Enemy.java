@@ -1,5 +1,7 @@
 package com.basset.shooter2;
 
+import com.osreboot.ridhvl.HvlMath;
+
 public class Enemy {
 	
 	public static final float ENEMY_SIZE = 16f;
@@ -28,8 +30,8 @@ public class Enemy {
 		
 		if(alerted) {
 			
-			x = player.getxPos();
-			y = player.getxPos();
+			x = HvlMath.stepTowards(x, ENEMY_MAX_SPEED * (delta*3), player.getxPos());
+			y = HvlMath.stepTowards(y, ENEMY_MAX_SPEED * (delta*3), player.getyPos());
 			
 		}
 		
