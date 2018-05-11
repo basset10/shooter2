@@ -1,5 +1,6 @@
 package com.basset.shooter2;
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuadc;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
@@ -118,6 +119,18 @@ public class Renderer {
 
 		//Finally draw the block
 		hvlDrawQuadc(xArg, yArg, Block.BLOCK_SIZE, Block.BLOCK_SIZE, uvx, uvy, uvx - 0.25f, uvy - 0.25f, Main.getTexture(textureIndex), color);
+	}
+	
+	public static void drawBullets(Player player, PlayerBullet bullet) {
+		
+		
+		if(bullet.isFired()) {
+			
+			hvlDrawQuadc(bullet.getBulletX(), bullet.getBulletY(), 5, 5, Color.white);
+			
+		}
+		
+		
 	}
 
 	public static void drawCrosshair(){
