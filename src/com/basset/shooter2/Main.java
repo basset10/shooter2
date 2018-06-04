@@ -5,9 +5,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotatio
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
@@ -57,7 +55,7 @@ public class Main extends HvlTemplateInteg2D {
 		enemies = new Enemy[] {
 
 				new Enemy(450, 450),
-				new Enemy(600, 600)
+				new Enemy(600, 600),
 
 		};
 
@@ -79,10 +77,6 @@ public class Main extends HvlTemplateInteg2D {
 	@Override
 	public void update(float delta){
 		//Updating utilities that do things every frame
-
-
-
-
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_X)) {
 
@@ -141,6 +135,8 @@ public class Main extends HvlTemplateInteg2D {
 
 				for(int i = 0; i < enemies.length; i++) {
 					Renderer.drawEnemy(enemies[i].getX(), enemies[i].getY(), enemies[i].getAlerted(), player);
+					//hvlDrawQuadc(enemies[i].getMovementGoal().x, enemies[i].getMovementGoal().y, 10, 10, Color.pink);
+					//hvlDrawLine(enemies[i].getX(), enemies[i].getY(), enemies[i].getMovementGoal().x, enemies[i].getMovementGoal().y, Color.pink);
 				}
 				//^^^^^ End camera transform ^^^^^
 			}
