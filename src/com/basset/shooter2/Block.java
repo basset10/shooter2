@@ -75,6 +75,15 @@ public class Block {
 		}
 		return output;
 	}
+	
+	public static boolean isBlockNear(float x, float y, int relativeX, int relativeY, Block[] blocks, boolean mustBeColldable){
+		for(Block b : blocks){
+			if(b != null && (!mustBeColldable || b.getCollidable()))
+				if(b.getxPos() == x + ((float)relativeX*Block.BLOCK_SIZE) &&
+					b.getyPos() == y + ((float)relativeY*Block.BLOCK_SIZE)) return true;
+		}
+		return false;
+	}
 
 }
 

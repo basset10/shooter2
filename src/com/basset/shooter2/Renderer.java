@@ -113,8 +113,10 @@ public class Renderer {
 		textureIndex = Main.DEV_MODE_ENABLED ? 0 : textureIndex + 1;
 
 		//Shade block if collision is enabled
-		float shadeAmount = Main.DEV_MODE_ENABLED ? 0.45f : 0.15f;
-		if(collision) color = new Color(color.r * shadeAmount, color.g * shadeAmount, color.b * shadeAmount);
+		float shadeAmount = Main.DEV_MODE_ENABLED ? 0.45f : 0.08f;
+		if(collision){
+			color = new Color(color.r * shadeAmount, color.g * shadeAmount, color.b * shadeAmount);
+		}
 
 		//Finally draw the block
 		hvlDrawQuadc(xArg, yArg, Block.BLOCK_SIZE, Block.BLOCK_SIZE, uvx, uvy, uvx - 0.25f, uvy - 0.25f, Main.getTexture(textureIndex), color);

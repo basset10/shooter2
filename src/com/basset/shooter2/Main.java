@@ -1,12 +1,16 @@
 package com.basset.shooter2;
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawPolygon;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuadc;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlForceRefresh;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.painter.HvlCamera2D;
@@ -19,6 +23,10 @@ public class Main extends HvlTemplateInteg2D {
 	}
 
 	public static final boolean DEV_MODE_ENABLED = false;
+
+	public static final float BLOCK_SHADOW_SIZE_X = 60f;
+	public static final float BLOCK_SHADOW_SIZE_Y = 20f;
+	public static final float BLOCK_SHADOW_OPACITY = 0.3f;
 
 	Player player;
 	Block[] blocks;
@@ -93,11 +101,11 @@ public class Main extends HvlTemplateInteg2D {
 
 		Renderer.update(delta);
 		player.update(delta, blocks);
-		
+
 		for(int i = 0; i < bullets.length; i++) {
-		bullets[i].update(delta, player);
+			bullets[i].update(delta, player);
 		}
-		
+
 		for(int i = 0; i < enemies.length; i++) {
 			enemies[i].update(delta, blocks, player);
 		}
@@ -105,6 +113,7 @@ public class Main extends HvlTemplateInteg2D {
 		//Set the camera's location to the player's location
 		camera.setPosition(player.getxPos(), player.getyPos());
 		camera.doTransform(new HvlAction0() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
 				//VVVVV Begin camera transform VVVVV
@@ -119,6 +128,47 @@ public class Main extends HvlTemplateInteg2D {
 					if(blocks[i] != null) {
 						Renderer.drawBlock(blocks[i].getxPos(), blocks[i].getyPos(), blocks[i].getPatternIndex(), blocks[i].getTextureIndex(), blocks[i].getCollidable());
 					}
+				}
+				for(int i = 0; i < blocks.length; i++) {
+					//Handling shadows below VVVVV
+					if(blocks[i] != null && blocks[i].getCollidable()){
+						hvlForceRefresh();
+						if(!Block.isBlockNear(blocks[i].getxPos(), blocks[i].getyPos(), 0, 1, blocks, true)){
+							if(!Block.isBlockNear(blocks[i].getxPos(), blocks[i].getyPos(), 1, 1, blocks, true)){
+								hvlDrawPolygon(blocks[i].getxPos(), blocks[i].getyPos(), new HvlCoord2D[]{
+										new HvlCoord2D(-Block.BLOCK_SIZE/2, Block.BLOCK_SIZE/2),
+										new HvlCoord2D(Block.BLOCK_SIZE/2, Block.BLOCK_SIZE/2),
+										new HvlCoord2D((Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_X, (Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_Y),
+										new HvlCoord2D(-(Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_X, (Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_Y),
+								}, new Color(0f, 0f, 0f, BLOCK_SHADOW_OPACITY));
+							}else{
+								hvlDrawPolygon(blocks[i].getxPos(), blocks[i].getyPos(), new HvlCoord2D[]{
+										new HvlCoord2D(-Block.BLOCK_SIZE/2, Block.BLOCK_SIZE/2),
+										new HvlCoord2D(Block.BLOCK_SIZE/2, Block.BLOCK_SIZE/2),
+										new HvlCoord2D((Block.BLOCK_SIZE/2), (Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_Y),
+										new HvlCoord2D(-(Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_X, (Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_Y),
+								}, new Color(0f, 0f, 0f, BLOCK_SHADOW_OPACITY));
+							}
+						}
+						if(!Block.isBlockNear(blocks[i].getxPos(), blocks[i].getyPos(), 1, 0, blocks, true)){
+							if(!Block.isBlockNear(blocks[i].getxPos(), blocks[i].getyPos(), 1, 1, blocks, true)){
+								hvlDrawPolygon(blocks[i].getxPos(), blocks[i].getyPos(), new HvlCoord2D[]{
+										new HvlCoord2D(Block.BLOCK_SIZE/2, -Block.BLOCK_SIZE/2),
+										new HvlCoord2D(Block.BLOCK_SIZE/2, Block.BLOCK_SIZE/2),
+										new HvlCoord2D((Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_X, (Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_Y),
+										new HvlCoord2D((Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_X, -(Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_Y),
+								}, new Color(0f, 0f, 0f, BLOCK_SHADOW_OPACITY));
+							}else{
+								hvlDrawPolygon(blocks[i].getxPos(), blocks[i].getyPos(), new HvlCoord2D[]{
+										new HvlCoord2D(Block.BLOCK_SIZE/2, -Block.BLOCK_SIZE/2),
+										new HvlCoord2D(Block.BLOCK_SIZE/2, Block.BLOCK_SIZE/2),
+										new HvlCoord2D((Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_X, (Block.BLOCK_SIZE/2)),
+										new HvlCoord2D((Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_X, -(Block.BLOCK_SIZE/2) + BLOCK_SHADOW_SIZE_Y),
+								}, new Color(0f, 0f, 0f, BLOCK_SHADOW_OPACITY));
+							}
+						}
+					}
+					//Handling shadows above ^^^^^
 				}
 
 				//Let's draw some random textures to make things look nice
