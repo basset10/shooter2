@@ -19,6 +19,11 @@ public class Renderer {
 			PLAYER_FOOTSTEP_SIZE = 8f;
 	public static final int PLAYER_FOOTSTEP_COUNT = 10;
 
+	public static final float ENEMY_LEG_SEPARATION = 10f,
+			ENEMY_WALK_SPEED = 3.7f,
+			ENEMY_BODY_SIZE = 18f,
+			ENEMY_FOOT_SIZE = 12f;
+
 	public static void update(float delta){
 		globalTimer += delta;
 
@@ -78,25 +83,36 @@ public class Renderer {
 		hvlResetRotation();
 	}
 
-	public static void drawEnemy(float xArg, float yArg, boolean alerted, Player player){
-		if(!alerted){
-			hvlRotate(xArg, yArg, globalTimer * 60f);
-			hvlDrawQuadc(xArg, yArg, 6, 18, new Color(0f, 0.35f, 0f));
-			hvlResetRotation();
+	public static void drawEnemy(float xArg, float yArg, float directionArg, boolean alerted, boolean idle, float alertProgress, Player player){
+		float apx = HvlMath.map(alertProgress, 0f, 1f, -0.5f, 1f);
+		float apy = HvlMath.map(alertProgress, 0f, 1f, 1.35f, 1f);
+		
+		hvlRotate(xArg, yArg, directionArg);
 
-			hvlDrawQuadc(xArg, yArg, 16, 16, new Color(0f, 0.4f, 0f));
-			hvlDrawQuadc(xArg, yArg, 4, 4, new Color(0f, 0.45f, 0f));
-		}else{
-			hvlRotate(xArg, yArg, globalTimer * 200f);
-			hvlDrawQuadc(xArg, yArg, 6, 22, new Color(0f, 0.7f, 0f));
-			hvlResetRotation();
+		hvlDrawQuadc(xArg, yArg, ENEMY_BODY_SIZE, ENEMY_BODY_SIZE, Main.getTexture(Main.INDEX_ENEMY_PART_BODY));
+		//hvlDrawQuadc(xArg - (ENEMY_BODY_SIZE/2), yArg, 4, 4, new Color(0f, 0.8f, 0f));
 
-			hvlDrawQuadc(xArg, yArg, 16, 16, new Color(0f, 0.5f, 0f));
-			
-			float eyeX = HvlMath.limit((player.getxPos() - xArg)*0.05f, -8, 8) + xArg;
-			float eyeY = HvlMath.limit((player.getyPos() - yArg)*0.05f, -8, 8) + yArg;
-			hvlDrawQuadc(eyeX, eyeY, 4, 4, new Color(0f, 0.8f, 0f));
-		}
+		hvlRotate(xArg - (ENEMY_BODY_SIZE/2), yArg - (ENEMY_BODY_SIZE/2), (float)Math.sin(globalTimer * ENEMY_WALK_SPEED) * alertProgress * 45 + 90);
+		hvlDrawQuadc(xArg - (ENEMY_BODY_SIZE/2) - (ENEMY_LEG_SEPARATION*apx/2), yArg - (ENEMY_BODY_SIZE/2), ENEMY_LEG_SEPARATION, 4, Main.getTexture(Main.INDEX_ENEMY_PART_LEG));
+		hvlDrawQuadc(xArg - (ENEMY_BODY_SIZE/2) - (ENEMY_LEG_SEPARATION*apx), yArg - (ENEMY_BODY_SIZE*apy/2), ENEMY_FOOT_SIZE, ENEMY_FOOT_SIZE, Main.getTexture(Main.INDEX_ENEMY_PART_FOOT));
+		hvlResetRotation();
+
+		hvlRotate(xArg + (ENEMY_BODY_SIZE/2), yArg - (ENEMY_BODY_SIZE/2), (float)Math.cos(globalTimer * ENEMY_WALK_SPEED) * alertProgress * 45 - 90);
+		hvlDrawQuadc(xArg + (ENEMY_BODY_SIZE/2) + (ENEMY_LEG_SEPARATION*apx/2), yArg - (ENEMY_BODY_SIZE/2), -ENEMY_LEG_SEPARATION, 4, Main.getTexture(Main.INDEX_ENEMY_PART_LEG));
+		hvlDrawQuadc(xArg + (ENEMY_BODY_SIZE/2) + (ENEMY_LEG_SEPARATION*apx), yArg - (ENEMY_BODY_SIZE*apy/2), -ENEMY_FOOT_SIZE, ENEMY_FOOT_SIZE, Main.getTexture(Main.INDEX_ENEMY_PART_FOOT));
+		hvlResetRotation();
+
+		hvlRotate(xArg - (ENEMY_BODY_SIZE/2), yArg + (ENEMY_BODY_SIZE/2), (float)Math.sin(globalTimer * ENEMY_WALK_SPEED) * alertProgress * 45 - 90);
+		hvlDrawQuadc(xArg - (ENEMY_BODY_SIZE/2) - (ENEMY_LEG_SEPARATION*apx/2), yArg + (ENEMY_BODY_SIZE/2), ENEMY_LEG_SEPARATION, 4, Main.getTexture(Main.INDEX_ENEMY_PART_LEG));
+		hvlDrawQuadc(xArg - (ENEMY_BODY_SIZE/2) - (ENEMY_LEG_SEPARATION*apx), yArg + (ENEMY_BODY_SIZE*apy/2), ENEMY_FOOT_SIZE, -ENEMY_FOOT_SIZE, Main.getTexture(Main.INDEX_ENEMY_PART_FOOT));
+		hvlResetRotation();
+
+		hvlRotate(xArg + (ENEMY_BODY_SIZE/2), yArg + (ENEMY_BODY_SIZE/2), (float)Math.cos(globalTimer * ENEMY_WALK_SPEED) * alertProgress * 45 + 90);
+		hvlDrawQuadc(xArg + (ENEMY_BODY_SIZE/2) + (ENEMY_LEG_SEPARATION*apx/2), yArg + (ENEMY_BODY_SIZE/2), -ENEMY_LEG_SEPARATION, 4, Main.getTexture(Main.INDEX_ENEMY_PART_LEG));
+		hvlDrawQuadc(xArg + (ENEMY_BODY_SIZE/2) + (ENEMY_LEG_SEPARATION*apx), yArg + (ENEMY_BODY_SIZE*apy/2), -ENEMY_FOOT_SIZE, -ENEMY_FOOT_SIZE, Main.getTexture(Main.INDEX_ENEMY_PART_FOOT));
+		hvlResetRotation();
+
+		hvlResetRotation();
 	}
 
 	public static void drawBlock(float xArg, float yArg, int patternIndexArg, int textureIndex, boolean collision){
@@ -121,17 +137,11 @@ public class Renderer {
 		//Finally draw the block
 		hvlDrawQuadc(xArg, yArg, Block.BLOCK_SIZE, Block.BLOCK_SIZE, uvx, uvy, uvx - 0.25f, uvy - 0.25f, Main.getTexture(textureIndex), color);
 	}
-	
+
 	public static void drawBullets(Player player, PlayerBullet bullet) {
-		
-		
 		if(bullet.isFired()) {
-			
 			hvlDrawQuadc(bullet.getBulletX(), bullet.getBulletY(), 5, 5, Color.white);
-			
 		}
-		
-		
 	}
 
 	public static void drawCrosshair(){

@@ -24,6 +24,10 @@ public class Main extends HvlTemplateInteg2D {
 
 	public static final boolean DEV_MODE_ENABLED = false;
 
+	public static final int INDEX_ENEMY_PART_LEG = 8,
+			INDEX_ENEMY_PART_FOOT = 9,
+			INDEX_ENEMY_PART_BODY = 10;
+
 	public static final float BLOCK_SHADOW_SIZE_X = 60f;
 	public static final float BLOCK_SHADOW_SIZE_Y = 20f;
 	public static final float BLOCK_SHADOW_OPACITY = 0.3f;
@@ -53,6 +57,10 @@ public class Main extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Sprite_Tech_Support");
 		getTextureLoader().loadResource("Sprite_Ore_1");
 
+		getTextureLoader().loadResource("Enemy_Part_Leg");
+		getTextureLoader().loadResource("Enemy_Part_Foot");
+		getTextureLoader().loadResource("Enemy_Part_Body");
+
 		//Instantiate the camera with a preset perspective to be centered around an object.
 		camera = new HvlCamera2D(Display.getWidth()/2, Display.getHeight()/2, 0, 1f, HvlCamera2D.ALIGNMENT_CENTER);
 
@@ -62,9 +70,10 @@ public class Main extends HvlTemplateInteg2D {
 		//Instantiate first enemy
 		enemies = new Enemy[] {
 
-				new Enemy(450, 450),
-				new Enemy(600, 600),
-
+				new Enemy(450, 425),
+				new Enemy(480, 425),
+				new Enemy(675, 325),
+				new Enemy(675, 775),
 		};
 
 		//Instantiate Player Bullets
@@ -184,7 +193,7 @@ public class Main extends HvlTemplateInteg2D {
 				}
 
 				for(int i = 0; i < enemies.length; i++) {
-					Renderer.drawEnemy(enemies[i].getX(), enemies[i].getY(), enemies[i].getAlerted(), player);
+					Renderer.drawEnemy(enemies[i].getX(), enemies[i].getY(), enemies[i].getDirection(), enemies[i].getAlerted(), enemies[i].isIdle(), enemies[i].getAlertProgress(), player);
 					//hvlDrawQuadc(enemies[i].getMovementGoal().x, enemies[i].getMovementGoal().y, 10, 10, Color.pink);
 					//hvlDrawLine(enemies[i].getX(), enemies[i].getY(), enemies[i].getMovementGoal().x, enemies[i].getMovementGoal().y, Color.pink);
 				}
